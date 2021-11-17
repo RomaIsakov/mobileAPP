@@ -7,7 +7,7 @@ from kivy.uix.textinput import TextInput
 class loginScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        label1=Label(text="Эл. Почта:")
+        label1=Label(text="Эл. Почта:1111")
         emailInput=TextInput()
         label2=Label(text="Пароль")
         password=TextInput()
