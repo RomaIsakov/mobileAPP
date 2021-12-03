@@ -5,7 +5,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.boxlayout import BoxLayout
 from allInfo import txt_instruction, txt_test1, txt_test2, txt_test3, txt_sits
-
+from algoritm import SResult, index
 p1,p2,p3=0,0,0
 age=7
 name=""
@@ -14,17 +14,17 @@ class screen1(Screen):
     def __init__(self, name):
         super().__init__(name=name)
         txt_instructionLabel=Label(text=txt_instruction)
-        nameLayout=BoxLayout(orientation="horizontal")
+        nameLayout=BoxLayout(orientation="horizontal", size_hint=(1, 0.1))
         nameLabel=Label(text="Введите ваше имя: ")
         self.nameInput=TextInput()
         nameLayout.add_widget(nameLabel)
         nameLayout.add_widget(self.nameInput)
-        ageLayout=BoxLayout(orientation="horizontal")
+        ageLayout=BoxLayout(orientation="horizontal", size_hint=(1, 0.1))
         ageLabel=Label(text="Введите ваш возраст: ")
         self.ageInput=TextInput()
         ageLayout.add_widget(ageLabel)
         ageLayout.add_widget(self.ageInput)
-        nextButton=Button(text="Продолжить")
+        nextButton=Button(text="Продолжить", size_hint=(0.4, 0.3), pos_hint={"center_x":0.5})
         nextButton.on_press=self.nextScreen
         mainLayout=BoxLayout(orientation="vertical")
         mainLayout.add_widget(txt_instructionLabel)
@@ -45,7 +45,7 @@ class screen2(Screen):
         labelInfo=Label(text=txt_test2)
         labelResult=Label(text="Введите ваш результат")
         self.resultInput=TextInput()
-        self.next=Button(text="Продолжить", size_hint=(0.3, None), pos_hint={"center_x":0.5})
+        self.next=Button(text="Продолжить", size_hint=(0.3, 0.2), pos_hint={"center_x":0.5})
         self.next.on_press=self.nextScreen
         inputLayout.add_widget(labelResult)
         inputLayout.add_widget(self.resultInput)
@@ -62,9 +62,9 @@ class screen2(Screen):
 class screen3(Screen):
     def __init__(self, name):
         super().__init__(name=name)
-        mainLayout=BoxLayout(orientation="vertical", size_hint=(0.5, 0.5), pos_hint={"center_y":0.5, "center_x":0.5}, spacing=150)
-        text=Label(text=txt_test3, size_hint=(0.3, None), pos_hint={"center_x":0.5})
-        button=Button(text="Продолжить", size_hint=(0.7, None), pos_hint={"center_x":0.5})
+        mainLayout=BoxLayout(orientation="vertical")
+        text=Label(text=txt_test3, size_hint=(0.3, 0.4), pos_hint={"center_x":0.5, "center_y":0.8})
+        button=Button(text="Продолжить", size_hint=(0.4, 0.1), pos_hint={"center_y":0, "center_x":0.5})
         button.on_press=self.nextScreen
         mainLayout.add_widget(text)
         mainLayout.add_widget(button)
@@ -75,17 +75,17 @@ class screen4(Screen):
     def __init__(self, name):
         super().__init__(name=name)
         txt_instructionLabel=Label(text=txt_test3)
-        nameLayout=BoxLayout(orientation="horizontal")
+        nameLayout=BoxLayout(orientation="horizontal", size_hint=(1, 0.1), pos_hint={"center_x":0.5})
         nameLabel=Label(text="Результат: ")
         self.nameInput=TextInput()
         nameLayout.add_widget(nameLabel)
         nameLayout.add_widget(self.nameInput)
-        ageLayout=BoxLayout(orientation="horizontal")
+        ageLayout=BoxLayout(orientation="horizontal", size_hint=(1, 0.1), pos_hint={"center_x":0.5})
         ageLabel=Label(text="Результат после отдыха: ")
         self.ageInput=TextInput()
         ageLayout.add_widget(ageLabel)
         ageLayout.add_widget(self.ageInput)
-        nextButton=Button(text="Завершить")
+        nextButton=Button(text="Завершить", size_hint=(0.4, 0.3), pos_hint={"center_y":0, "center_x":0.5})
         nextButton.on_press=self.nextScreen
         mainLayout=BoxLayout(orientation="vertical")
         mainLayout.add_widget(txt_instructionLabel)
@@ -102,10 +102,13 @@ class screen4(Screen):
 class screen5(Screen):
     def __init__(self, name):
         super().__init__(name=name)
-        txt_instructionLabel=Label(text="Ага")
+        self.txt_instructionLabel=Label(text="")
         mainLayout=BoxLayout()
-        mainLayout.add_widget(txt_instructionLabel)
+        mainLayout.add_widget(self.txt_instructionLabel)
         self.add_widget(mainLayout)
+        self.on_enter=self.labelChanger
+    def labelChanger(self):
+        self.txt_instructionLabel.text=SResult(int(p1),int(p2),int(p3),int(age))+"\n"+str(index(int(p1), int(p2), int(p3)))
 
 
 class HeartTester(App):
